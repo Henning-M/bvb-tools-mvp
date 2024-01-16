@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Enter Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+Print numbered list of registered teams (teamsArray incl. position)
+Select TeamA & TeamB via dropdown
+Basic: enter sets and total points (e.g. 1, 0, 21, 17)
+Advanced: enter result per set and calculate results
+
+    <h2>Teams List</h2>
+    <div id="teamsRegistered">
+    </div>
+
+
+
+    <h2>Fixture</h2>
+    <div id="fixtureEntry">
+        <label for="teamADropdown">Select Team A:</label>
+        <select id="teamADropdown">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <label for="teamBDropdown">Select Team B:</label>
+        <select id="teamBDropdown">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <label for="teamASets">Sets Team A: </label><input type="number" id="teamASets"> <br><br>
+        <label for="teamBSets">Sets Team B: </label><input type="number" id="teamBSets"> <br><br>
+        <button id="saveResult" type="button">Save result</button>
+    </div>
+
+    <h2 id="gamesPlayedH">Teams registered</h2>
+    <div id="gamesPlayed">
+    </div>
+
+    <script src="./main.js"></script>
+</body>
+</html>
