@@ -182,11 +182,8 @@ function populateDropdown() {
     }
   }
 
-  // Call the function to populate the dropdown
-  populateDropdown();
-
-
-
+// Call the function to populate the dropdown
+populateDropdown();
 
 // Update displayed list of registered teams --> later
 // Saving a game result upon click of button
@@ -197,4 +194,10 @@ saveResult.addEventListener('click', () => {            // Add Event listener fo
     gamesArray.push(newGame);                           // Push new game to games-array
     teamAInput.value = '';                              // Empty input fields
     teamBInput.value = '';
+});
+
+//Clearing local Storage
+const clearStorage = document.getElementById('clear-local-storage');
+clearStorage.addEventListener('click', () => {
+    localStorage.clear();
 });
