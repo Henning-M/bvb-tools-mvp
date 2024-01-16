@@ -110,28 +110,7 @@ const player1Input = document.getElementById('player1');
 const player2Input = document.getElementById('player2');
 const saveButton = document.getElementById('saveTeam');
 const teamsRegistered = document.getElementById('teamsRegistered')
-
-// Registering a team upon click of button
-saveButton.addEventListener('click', () => {    // Add Event listener for button
-    let player1 = player1Input.value;           // Assign input field values to temp variables
-    let player2 = player2Input.value;
-    if(forbiddenInputs.includes(player1) || forbiddenInputs.includes(player2)) {    // Check that ignore when >= 1 input forbidden
-        window.alert("Please only enter unique valid player names. If your team is not yet complete, please withhold your registration until it is.")
-    } else {
-        let newTeam = new TeamOfTwo(player1, player2);      // Create new TeamOfTwo with player input
-        teamsArray.push(newTeam);                           // Push new team to teams-array
-        forbiddenInputs.push(player1, player2)              // Add player names to forbiddenInputs to avoid duplicates
-        player1Input.value = '';                            // Empty input fields
-        player2Input.value = '';
-        updateRegisteredTeamsList(teamsArray);              // Update displayed list of registered teams
-    }
-});
-
-// Array ensuring no blank or tbd are entered
-// Submitted (and permitted) player names are added to avoid duplicate entries
-const forbiddenInputs = [
-    '', ' ', 'blank', 'tbd'
-]
+const clearStorage = document.getElementById('clear-local-storage');
 
 // Updating displayed list of registered teams
 function updateRegisteredTeamsList(array) {
@@ -145,7 +124,42 @@ function updateRegisteredTeamsList(array) {
         container.appendChild(teamName); // Append the paragraph element to the container
     });
     listTitle.innerHTML = 'Teams registered: ' + teamsArray.length;
-}
+};
+
+// Array ensuring no blank or tbd are entered
+// Submitted (and permitted) player names are added to avoid duplicate entries
+const forbiddenInputs = ['', ' ', 'blank', 'tbd'];
+
+// Registering a team upon click of button
+saveButton.addEventListener('click', () => {    // Add Event listener for button
+    let player1 = player1Input.value;           // Assign input field values to temp variables
+    let player2 = player2Input.value;
+    if(forbiddenInputs.includes(player1) || forbiddenInputs.includes(player2)) {    // Check that ignore when >= 1 input forbidden
+        window.alert("Please only enter unique valid player names. If your team is not yet complete, please withhold your registration until it is.")
+    } else {
+        let newTeam = new TeamOfTwo(player1, player2);      // Create new TeamOfTwo with player input
+        teamsArray.push(newTeam);                           // Push new team to teams-array
+        forbiddenInputs.push(player1, player2)              // Add player names to forbiddenInputs to avoid duplicates
+    localStorage.setItem('teams', JSON.stringify(teamsArray));  // Loading teamsArray into local storage
+        player1Input.value = '';                            // Empty input fields
+        player2Input.value = '';
+    let printTeamsArray = JSON.parse(localStorage.getItem('teams')) || []; // Retrieve full teamsArray from local storage
+        updateRegisteredTeamsList(printTeamsArray);              // Update displayed list of registered teams
+    }
+});
+
+//Clearing local storage
+clearStorage.addEventListener('click', () => {
+    localStorage.clear();
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -158,7 +172,7 @@ const createNameTeamArray = (array) => {
     array.forEach(element => {
         nameTeamArray.push(element.nameTeam)
     });
-}
+};
 
 createNameTeamArray(teamsArray); // Calling function to create list of teams to select from
 
@@ -169,7 +183,7 @@ const teamBSelection = document.getElementById('teamBDropdown');
 const teamASets = document.getElementById('teamASets');
 const teamBSets = document.getElementById('teamBSets');
 const saveResult = document.getElementById('saveResult');
-const gamesPlayed = document.getElementById('gamesPlayed')
+const gamesPlayed = document.getElementById('gamesPlayed');
 
 // Filling the dropdown
 function populateDropdown() {
@@ -180,7 +194,7 @@ function populateDropdown() {
       teamASelection.appendChild(option); // Append the option to the select element
       teamBSelection.appendChild(option); // Append to second dropdown
     }
-  }
+  };
 
 // Call the function to populate the dropdown
 populateDropdown();
@@ -196,8 +210,3 @@ saveResult.addEventListener('click', () => {            // Add Event listener fo
     teamBInput.value = '';
 });
 
-//Clearing local Storage
-const clearStorage = document.getElementById('clear-local-storage');
-clearStorage.addEventListener('click', () => {
-    localStorage.clear();
-});
